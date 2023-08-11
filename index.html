@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rastgele Sayı Seç</title>
+    <style>
+        .selected {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <p>1'den 99'a kadar olan sayıları for döngüsü ile yan yana <button onclick="doSortBy()" type="submit" id="sortBy">Sırala</button></p>
+
+    <br>
+    <button type="submit" onclick="doRandomNumberChoose()" id="randomNumber" disabled>Rastgele Sayı Seç</button>
+    <br> <br>
+    <div id="numbers"></div>
+
+    <style>
+        .selected {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+
+    <script>
+        const selectedNumbers = [];
+
+        function doSortBy() {
+            const numbersContainer = document.getElementById('numbers');
+            let numbersText = '';
+            for (let i = 1; i <= 99; i++) {
+                numbersText += `<span>${i}</span>`;
+                if (i % 10 === 0) {
+                    numbersText += '<br><br>';
+                } else {
+                    numbersText += ' ';
+                }
+            }
+            numbersContainer.innerHTML = numbersText;
+            document.getElementById('sortBy').disabled = true;
+            document.getElementById('randomNumber').disabled = false;
+        }
+
+        function doRandomNumberChoose() {
+            const spans = document.querySelectorAll('#numbers span');
+            let randomNumber = Math.floor(Math.random() * 99) + 1;
+
+           
+            while (selectedNumbers.includes(randomNumber)) {
+                randomNumber = Math.floor(Math.random() * 99) + 1;
+            }
+
+            selectedNumbers.push(randomNumber);
+
+            spans.forEach(span => {
+                span.style.color = 'black';
+                span.style.fontWeight = 'normal';
+
+                if (span.textContent == randomNumber) {
+                    span.classList.add('selected');
+                }
+
+                if (span.classList.contains('selected')) {
+                    span.style.color = 'red';
+                    span.style.fontWeight = 'bold';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
